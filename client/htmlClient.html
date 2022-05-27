@@ -1,0 +1,24 @@
+<html>
+    <script>
+        const gql = `query($id : Int)
+            {
+                getStudentById(id :$id) {
+                id,
+                name,
+                faculty,
+                grades { profession, points }
+            }
+            }`
+            async function getData()
+            {
+                let obj  = { query : gql, variables : {"id" : 2}}
+                let fetchParams = {method : 'POST', body : JSON.stringify(obj) ,headers : {"Content-Type" : "application/json"}}
+                let resp = await fetch("http://localhost:4000/graphql", fetchParams)
+                let data = await resp.json();
+                console.log(data);
+            }
+    </script>
+    <body>
+        <input type="button" value="Get Data" onclick="getData()">
+    </body>
+</html>
